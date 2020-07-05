@@ -9,8 +9,8 @@ import (
 
 const (
 	createRoomURL     = "https://api.weixin.qq.com/wxaapi/broadcast/room/create"
-	getLiveinfoURL = "http://api.weixin.qq.com/wxa/business/getliveinfo"
-	getliveinfoReplayURL = "http://api.weixin.qq.com/wxa/business/getliveinfo"
+	getLiveinfoURL = "https://api.weixin.qq.com/wxa/business/getliveinfo"
+	getliveinfoReplayURL = "https://api.weixin.qq.com/wxa/business/getliveinfo"
 	addgoodsURL = "https://api.weixin.qq.com/wxaapi/broadcast/room/addgoods"
 )
 
