@@ -62,6 +62,43 @@ func (material *Material) MediaUpload(mediaType MediaType, filename string) (med
 	return
 }
 
+
+//MediaUpload 临时素材上传
+func (material *Material) MediaUploadData(mediaType MediaType, filedata []byte) (media Media, err error) {
+	var accessToken string
+	accessToken, err = material.GetAccessToken()
+	if err != nil {
+		return
+	}
+
+	uri := fmt.Sprintf("%s?access_token=%s&type=%s", mediaUploadURL, accessToken, mediaType)
+	var response []byte
+
+	response, err =util.PostMultipartForm([]util.MultipartFormField{
+		{
+			IsFile:    false,
+			Fieldname: "media",
+			Value:     filedata,
+			Filename:  "",
+		},
+	},uri)
+
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(response, &media)
+	if err != nil {
+		return
+	}
+	if media.ErrCode != 0 {
+		err = fmt.Errorf("MediaUpload error : errcode=%v , errmsg=%v", media.ErrCode, media.ErrMsg)
+		return
+	}
+	return
+}
+
+
+
 //GetMediaURL 返回临时素材的下载地址供用户自己处理
 //NOTICE: URL 不可公开，因为含access_token 需要立即另存文件
 func (material *Material) GetMediaURL(mediaID string) (mediaURL string, err error) {
