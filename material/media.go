@@ -133,12 +133,14 @@ func (material *Material) MediaUploadForMultipart(mediaType MediaType,f multipar
 	req.Header.Add("Content-Type", bodyWriter.FormDataContentType())
 	urlQuery := req.URL.Query()
 	if err != nil {
+		return
 	}
 
 	req.URL.RawQuery = urlQuery.Encode()
 	client := http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
+		return
 	}
 	defer res.Body.Close()
 	response, err = ioutil.ReadAll(res.Body)
