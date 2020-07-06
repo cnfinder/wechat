@@ -1,8 +1,13 @@
 package material
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
 
 	"github.com/cnfinder/wechat/util"
 )
@@ -82,6 +87,60 @@ func (material *Material) MediaUploadData(mediaType MediaType, filedata []byte) 
 			Filename:  "",
 		},
 	},uri)
+
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(response, &media)
+	if err != nil {
+		return
+	}
+	if media.ErrCode != 0 {
+		err = fmt.Errorf("MediaUpload error : errcode=%v , errmsg=%v", media.ErrCode, media.ErrMsg)
+		return
+	}
+	return
+}
+
+
+
+
+
+//MediaUpload 临时素材上传
+// 数据来源于 post 上传的文件
+func (material *Material) MediaUploadForMultipart(mediaType MediaType,f multipart.File, header *multipart.FileHeader) (media Media, err error) {
+	var accessToken string
+	accessToken, err = material.GetAccessToken()
+	if err != nil {
+		return
+	}
+
+	uri := fmt.Sprintf("%s?access_token=%s&type=%s", mediaUploadURL, accessToken, mediaType)
+	var response []byte
+
+
+	bodyBuf := &bytes.Buffer{}
+	bodyWriter := multipart.NewWriter(bodyBuf)
+	fileWriter, _ := bodyWriter.CreateFormFile("media",header.Filename)
+
+	if _, err:= io.Copy(fileWriter, f); err != nil {
+		return
+	}
+	bodyWriter.Close()
+
+	req, err := http.NewRequest("POST", uri, bodyBuf)
+	req.Header.Add("Content-Type", bodyWriter.FormDataContentType())
+	urlQuery := req.URL.Query()
+	if err != nil {
+	}
+
+	req.URL.RawQuery = urlQuery.Encode()
+	client := http.Client{}
+	res, err := client.Do(req)
+	if err != nil {
+	}
+	defer res.Body.Close()
+	response, err = ioutil.ReadAll(res.Body)
 
 	if err != nil {
 		return
