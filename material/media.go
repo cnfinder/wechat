@@ -69,6 +69,7 @@ func (material *Material) MediaUpload(mediaType MediaType, filename string) (med
 
 
 //MediaUpload 临时素材上传
+// 但是调用PostMultipartForm 传入 []byte 是不能上传成功的
 func (material *Material) MediaUploadData(mediaType MediaType, filedata []byte) (media Media, err error) {
 	var accessToken string
 	accessToken, err = material.GetAccessToken()
