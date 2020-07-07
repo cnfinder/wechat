@@ -124,12 +124,12 @@ func (material *Material) MediaUploadForMultipart(mediaType MediaType,f multipar
 	bodyWriter := multipart.NewWriter(bodyBuf)
 	fileWriter, _ := bodyWriter.CreateFormFile("media",header.Filename)
 
-	if _, err:= io.Copy(fileWriter, f); err != nil {
+	if _, err= io.Copy(fileWriter, f); err != nil {
 		return
 	}
 	bodyWriter.Close()
-
-	req, err := http.NewRequest("POST", uri, bodyBuf)
+	var req *http.Request
+	req, err = http.NewRequest("POST", uri, bodyBuf)
 	req.Header.Add("Content-Type", bodyWriter.FormDataContentType())
 	urlQuery := req.URL.Query()
 	if err != nil {
@@ -138,7 +138,8 @@ func (material *Material) MediaUploadForMultipart(mediaType MediaType,f multipar
 
 	req.URL.RawQuery = urlQuery.Encode()
 	client := http.Client{}
-	res, err := client.Do(req)
+	var res *http.Response
+	res, err = client.Do(req)
 	if err != nil {
 		return
 	}
