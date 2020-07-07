@@ -69,8 +69,9 @@ func (material *Material) MediaUpload(mediaType MediaType, filename string) (med
 
 
 //MediaUpload 临时素材上传
-// 但是调用PostMultipartForm 传入 []byte 是不能上传成功的
-func (material *Material) MediaUploadData(mediaType MediaType, filedata []byte) (media Media, err error) {
+// 但是调用PostMultipartForm 传入 []byte 上传成功
+// filename: aa.png
+func (material *Material) MediaUploadData(mediaType MediaType, filedata []byte,filename string) (media Media, err error) {
 	var accessToken string
 	accessToken, err = material.GetAccessToken()
 	if err != nil {
@@ -82,10 +83,10 @@ func (material *Material) MediaUploadData(mediaType MediaType, filedata []byte) 
 
 	response, err =util.PostMultipartForm([]util.MultipartFormField{
 		{
-			IsFile:    false,
+			IsFile:    true,
 			Fieldname: "media",
 			Value:     filedata,
-			Filename:  "",
+			Filename:  filename,
 		},
 	},uri)
 

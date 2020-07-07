@@ -108,7 +108,7 @@ func PostFile(fieldname, filename, uri string) ([]byte, error) {
 
 //MultipartFormField 保存文件或其他字段信息
 type MultipartFormField struct {
-	IsFile    bool
+	IsFile    bool  // 是否为文件 字段
 	Fieldname string
 	Value     []byte
 	Filename  string
@@ -127,16 +127,25 @@ func PostMultipartForm(fields []MultipartFormField, uri string) (respBody []byte
 				return
 			}
 
-			fh, e := os.Open(field.Filename)
-			if e != nil {
-				err = fmt.Errorf("error opening file , err=%v", e)
-				return
-			}
-			defer fh.Close()
+			if field.Value!=nil{
+				// 从字节码 设置内容
+				buffer:=bytes.NewBuffer(field.Value)
+				if _, err = io.Copy(fileWriter, buffer); err != nil {
+					return
+				}
+			}else{
+				fh, e := os.Open(field.Filename)
+				if e != nil {
+					err = fmt.Errorf("error opening file , err=%v", e)
+					return
+				}
+				defer fh.Close()
 
-			if _, err = io.Copy(fileWriter, fh); err != nil {
-				return
+				if _, err = io.Copy(fileWriter, fh); err != nil {
+					return
+				}
 			}
+
 		} else {
 			partWriter, e := bodyWriter.CreateFormField(field.Fieldname)
 			if e != nil {
