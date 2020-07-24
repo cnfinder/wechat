@@ -113,6 +113,7 @@ type RoomInfo struct {
 	ShareImg string `json:"shareImg"`
 	Goods []Goods `json:"goods"`
 	Total int `json:"total"`
+	Live_status string `json:"live_status"`
 }
 
 type Goods struct {
