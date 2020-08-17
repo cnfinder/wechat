@@ -47,7 +47,7 @@ type Room struct {
 
 type RoomRes struct {
 	util.CommonError
-	
+
 	RoomId int `json:"roomId"`
 }
 
@@ -188,7 +188,7 @@ type LiveReplay struct {
 	ExpireTime string `json:"expire_time"`
 	CreateTime string `json:"create_time"`
 	MediaUrl string `json:"media_url"`
-	
+
 }
 
 
@@ -272,7 +272,7 @@ func (this *LiveRoom) AddGoods(ids []int,room_id int) (res AddGoodsRes,err error
 	var response []byte
 
 	mapdata:=map[string]interface{}{
-		"id":ids,
+		"ids":ids,
 		"roomId": room_id,
 
 	}
