@@ -43,6 +43,9 @@ type Room struct {
 	CloseLike int `json:"closeLike"`
 	CloseGoods int `json:"closeGoods"`
 	CloseComment int `json:"closeComment"`
+	CloseReplay int `json:"closeReplay"`
+	CloseShare  int `json:"closeShare"`
+	CloseKf int `json:"closeKf"`
 }
 
 type RoomRes struct {
