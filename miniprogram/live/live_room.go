@@ -43,11 +43,14 @@ type Room struct {
 	CloseLike int `json:"closeLike"`
 	CloseGoods int `json:"closeGoods"`
 	CloseComment int `json:"closeComment"`
+	CloseReplay int `json:"closeReplay"`
+	CloseShare  int `json:"closeShare"`
+	CloseKf int `json:"closeKf"`
 }
 
 type RoomRes struct {
 	util.CommonError
-	
+
 	RoomId int `json:"roomId"`
 }
 
@@ -188,7 +191,7 @@ type LiveReplay struct {
 	ExpireTime string `json:"expire_time"`
 	CreateTime string `json:"create_time"`
 	MediaUrl string `json:"media_url"`
-	
+
 }
 
 
@@ -272,7 +275,7 @@ func (this *LiveRoom) AddGoods(ids []int,room_id int) (res AddGoodsRes,err error
 	var response []byte
 
 	mapdata:=map[string]interface{}{
-		"id":ids,
+		"ids":ids,
 		"roomId": room_id,
 
 	}
