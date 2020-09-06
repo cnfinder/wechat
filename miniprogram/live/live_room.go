@@ -37,6 +37,7 @@ type Room struct {
 	EndTime int64 `json:"endTime"`
 	AnchorName string `json:"anchorName"`
 	AnchorWechat string `json:"anchorWechat"`
+	SubAnchorWechat string `json:"subAnchorWechat"`
 	ShareImg string `json:"shareImg"`
 	Type int `json:"type"`
 	ScreenType int `json:"screenType"`
@@ -52,6 +53,8 @@ type RoomRes struct {
 	util.CommonError
 
 	RoomId int `json:"roomId"`
+	// 当主播微信号没有在 “小程序直播“ 小程序实名认证 返回该字段
+	Qrcode_url string `json:"qrcode_url"`
 }
 
 
