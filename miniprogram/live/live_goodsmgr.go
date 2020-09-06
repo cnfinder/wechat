@@ -41,7 +41,7 @@ type GoodsInfoRequest struct {
 type GoodsInfoRes struct {
 	util.CommonError
 
-	GoodsId int `json:"goodsId"`
+	GoodsId string `json:"goodsId"`
 	AuditId int `json:"auditId"`
 
 }
@@ -54,9 +54,9 @@ type GoodsInfo struct {
 	PriceType int `json:"priceType"`
 	Price float64 `json:"price"`
 	Price2 float64 `json:"price2"`
-	
+
 	Url string `json:"url"`
-	GoodsId int `json:"goodsId"`
+	GoodsId string `json:"goodsId"`
 }
 
 
