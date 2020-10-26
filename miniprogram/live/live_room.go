@@ -116,7 +116,7 @@ type RoomInfo struct {
 	StartTime int64 `json:"start_time"`
 	EndTime int64 `json:"end_time"`
 	AnchorName string `json:"anchor_name"`
-	ShareImg string `json:"shareImg"`
+	ShareImg string `json:"share_img"`
 	Goods []Goods `json:"goods"`
 	Total int `json:"total"`
 	Live_status int `json:"live_status"`
