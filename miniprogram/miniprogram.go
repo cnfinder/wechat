@@ -28,3 +28,9 @@ func (this *MiniProgram) GetLiveRoom() *live.LiveRoom{
 func (this *MiniProgram) GetLiveGoodsMgr() *live.LiveGoodsMgr{
 	return live.NewLiveGoodsMgr(this.Context)
 }
+
+
+// 获取主播管理实例
+func (this *MiniProgram) GetLiveAnchor()*live.LiveAnchor{
+	return  live.NewLiveAnchor(this.Context)
+}
