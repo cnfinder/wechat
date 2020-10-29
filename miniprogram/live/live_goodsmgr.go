@@ -51,7 +51,7 @@ type GoodsInfo struct {
 	CoverImgUrl string `json:"coverImgUrl"`
 
 	Name string `json:"name"`
-	PriceType int `json:"priceType"`
+	PriceType int `json:"price_type"`
 	Price float64 `json:"price"`
 	Price2 float64 `json:"price2"`
 
