@@ -2,7 +2,6 @@ package live
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/cnfinder/wechat/context"
 	"github.com/cnfinder/wechat/util"
@@ -136,25 +135,25 @@ POST
 */
 
 
-func (this *LiveAnchor) AddRole(req *RoleReq)error{
+func (this *LiveAnchor) AddRole(req *RoleReq)(int,error){
 	var accessToken string
 	accessToken, err := this.GetAccessToken()
 	if err != nil {
-		return   err
+		return   -1,err
 	}
 
 	uri := fmt.Sprintf("%s?access_token=%s", addRoleUrl, accessToken)
 	response, err := util.PostJSON(uri,req)
 	if err != nil {
-		return err
+		return -1,err
 	}
 
 	res := RoleRes{}
 	err = json.Unmarshal(response, &res)
 	if err != nil {
-		return   err
+		return   -1,err
 	}
-	return  errors.New(ROLE_ERR_MSG[res.Errcode])
+	return  res.Errcode,nil
 }
 
 
@@ -171,25 +170,25 @@ POST
 
 */
 
-func (this *LiveAnchor) DelRole(req *RoleReq)error{
+func (this *LiveAnchor) DelRole(req *RoleReq)(int,error){
 	var accessToken string
 	accessToken, err := this.GetAccessToken()
 	if err != nil {
-		return err
+		return  -1,err
 	}
 
 	uri := fmt.Sprintf("%s?access_token=%s", delRoleUrl, accessToken)
 	response, err := util.PostJSON(uri, req)
 	if err != nil {
-		return err
+		return -1,err
 	}
 
 	res := RoleRes{}
 	err = json.Unmarshal(response, &res)
 	if err != nil {
-		return err
+		return -1,err
 	}
-	return errors.New(ROLE_ERR_MSG[res.Errcode])
+	return res.Errcode,nil
 }
 
 
