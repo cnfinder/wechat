@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	addRoleUrl = "https://api.weixin.qq.com/wxaapi/broadcast/role/addrole?access_token="
-    delRoleUrl = "https://api.weixin.qq.com/wxaapi/broadcast/role/deleterole?access_token="
-    queryListUrl = "https://api.weixin.qq.com/wxaapi/broadcast/role/getrolelist?access_token="
+	addRoleUrl = "https://api.weixin.qq.com/wxaapi/broadcast/role/addrole"
+    delRoleUrl = "https://api.weixin.qq.com/wxaapi/broadcast/role/deleterole"
+    queryListUrl = "https://api.weixin.qq.com/wxaapi/broadcast/role/getrolelist"
 )
 
 var ROLE_ERR_MSG = map[int]string{
