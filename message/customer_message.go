@@ -72,6 +72,20 @@ func NewCustomerVoiceMessage(toUser, mediaID string) *CustomerMessage {
 	}
 }
 
+//NewCustomerMiniprogrampage 小程序消息的构造方法
+func NewCustomerMiniprogrampage(toUser,title,appid,pagepath,thumb_media_id string) *CustomerMessage{
+	return &CustomerMessage{
+		ToUser:  toUser,
+		Msgtype: MsgTypeMini,
+		Miniprogrampage: &MediaMiniprogrampage{
+			Title:title,
+			Appid:appid,
+			Pagepath:pagepath,
+			ThumbMediaID:thumb_media_id,
+		},
+	}
+}
+
 //MediaText 文本消息的文字
 type MediaText struct {
 	Content string `json:"content"`
