@@ -13,8 +13,8 @@ var refundGateway = "https://api.mch.weixin.qq.com/secapi/pay/refund"
 type RefundParams struct {
 	TransactionID string
 	OutRefundNo   string
-	TotalFee      string
-	RefundFee     string
+	TotalFee      int
+	RefundFee     int
 	RefundDesc    string
 	RootCa        string //ca证书
 }
@@ -28,8 +28,8 @@ type refundRequest struct {
 	SignType      string `xml:"sign_type,omitempty"`
 	TransactionID string `xml:"transaction_id"`
 	OutRefundNo   string `xml:"out_refund_no"`
-	TotalFee      string `xml:"total_fee"`
-	RefundFee     string `xml:"refund_fee"`
+	TotalFee      int `xml:"total_fee"`
+	RefundFee     int `xml:"refund_fee"`
 	RefundDesc    string `xml:"refund_desc,omitempty"`
 	//NotifyUrl     string `xml:"notify_url,omitempty"`
 }
