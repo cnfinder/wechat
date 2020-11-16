@@ -110,3 +110,29 @@ func (pcf *Pay) Queryorder(p *QueryOrderRequest) (rsp QueryOrderResponse, err er
 
 }
 
+
+/*
+SUCCESS—支付成功
+
+REFUND—转入退款
+
+NOTPAY—未支付
+
+CLOSED—已关闭
+
+REVOKED—已撤销（刷卡支付）
+
+USERPAYING--用户支付中
+
+PAYERROR--支付失败(其他原因，如银行返回失败)
+*/
+
+const (
+	Trade_state_success  = "SUCCESS"
+	Trade_state_refund  = "REFUND"
+	Trade_state_noypay  = "NOTPAY"
+	Trade_state_closed  = "CLOSED"
+	Trade_state_revoked  = "REVOKED"
+	Trade_state_userpaying  = "USERPAYING"
+	Trade_state_payerror  = "PAYERROR"
+)
