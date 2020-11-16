@@ -71,7 +71,7 @@ func (pcf *Pay) Queryorder(p *QueryOrderRequest) (rsp QueryOrderResponse, err er
 	param["appid"] = pcf.AppID
 	param["mch_id"] = pcf.PayMchID
 	param["nonce_str"] = nonceStr
-	param["out_refund_no"] = p.OutTradeNo
+	param["out_trade_no"] = p.OutTradeNo
 	param["sign_type"] = "MD5"
 
 	bizKey := "&key=" + pcf.PayKey
