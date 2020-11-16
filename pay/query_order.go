@@ -11,13 +11,13 @@ var   queryOrderGateway = "https://api.mch.weixin.qq.com/pay/orderquery"
 
 //   请求参数
 type  QueryOrderRequest struct {
-	Appid  string    //   必传
-	MchId  string    //   必传
-	TransactionId  string     // 二选一
-	OutTradeNo    string      // 二选一
-	NonceStr  string    //   必传
-	Sign     string      //   必传
-	SignType  string     // 非必传
+	Appid  string   `xml:"appid,omitempty" json:"appid,omitempty"` //   必传
+	MchId  string   `xml:"mch_id,omitempty" json:"mch_id,omitempty"` //   必传
+	TransactionId  string   `xml:"transaction_id,omitempty" json:"transaction_id,omitempty"`  // 二选一
+	OutTradeNo    string      `xml:"out_trade_no,omitempty" json:"out_trade_no,omitempty"` // 二选一
+	NonceStr  string  `xml:"nonce_str,omitempty" json:"nonce_str,omitempty"`  //   必传
+	Sign     string      `xml:"sign,omitempty" json:"sign,omitempty"` //   必传
+	SignType  string   `xml:"sign_type,omitempty"`  // 非必传
 }
 
 
