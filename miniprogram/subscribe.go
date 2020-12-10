@@ -44,17 +44,11 @@ type ResSubMessage struct {
 // subMessage 开始发送消息
 func (this *Subscribe) SubMessage(msg *Message) (result ResSubMessage, err error) {
 
-	// d := DataItem{}
-	// d.Value = "dddd"
-
-	// s := Message{}
-	// s.Data = d
-
 	accessToken, err := this.GetAccessToken()
 	if err != nil {
 		return
 	}
-	urlStr := fmt.Sprintf(accessToken)
+	urlStr := fmt.Sprintf(subMessageURL, accessToken)
 
 	var response []byte
 	response, err = util.PostJSON(urlStr, msg)
