@@ -1,7 +1,6 @@
 package miniprogram
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/cnfinder/wechat/context"
@@ -13,13 +12,21 @@ import (
  */
 
 const (
-	subMessageURL = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=%s"
+	subscribeSendURL = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=%s"
 )
 
 //Subscribe 订阅消息
 type Subscribe struct {
 	*context.Context
 }
+
+func NewSubscribe(context *context.Context)  *Subscribe{
+
+	sub:=new(Subscribe)
+	sub.Context = context
+	return sub
+}
+
 
 // Message 订阅消息请求参数
 type Message struct {
@@ -41,29 +48,20 @@ type ResSubMessage struct {
 	util.CommonError
 }
 
-// subMessage 开始发送消息
-func (this *Subscribe) SubMessage(msg *Message) (result ResSubMessage, err error) {
 
-	accessToken, err := this.GetAccessToken()
+
+// Send 发送订阅消息
+func (s *Subscribe) Send(msg *Message) (err error) {
+	var accessToken string
+	accessToken, err = s.GetAccessToken()
 	if err != nil {
 		return
 	}
-	urlStr := fmt.Sprintf(subMessageURL, accessToken)
-
-	var response []byte
-	response, err = util.PostJSON(urlStr, msg)
+	uri := fmt.Sprintf(subscribeSendURL, accessToken)
+	response, err := util.PostJSON(uri, msg)
 	if err != nil {
 		return
 	}
-
-	err = json.Unmarshal(response, &result)
-	if err != nil {
-		return
-	}
-
-	if result.ErrCode != 0 {
-		err = fmt.Errorf("SubscribeMessage error : errcode=%v , errmsg=%v", result.ErrCode, result.ErrMsg)
-		return
-	}
-	return
+	return util.DecodeWithCommonError(response, "Send")
 }
+

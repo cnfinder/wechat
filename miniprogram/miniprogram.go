@@ -31,6 +31,11 @@ func (this *MiniProgram) GetLiveGoodsMgr() *live.LiveGoodsMgr{
 
 
 // 获取主播管理实例
-func (this *MiniProgram) GetLiveAnchor()*live.LiveAnchor{
+func (this *MiniProgram) GetLiveAnchor() *live.LiveAnchor{
 	return  live.NewLiveAnchor(this.Context)
+}
+
+// 获取主播管理实例
+func (this *MiniProgram) GetSubscribe() *Subscribe{
+	return  NewSubscribe(this.Context)
 }
