@@ -77,7 +77,7 @@ func (pcf *Pay) Withdrawal_wxbalance(req  *WithdrawalRequest_wxbalance)(rsp *Wit
 		Amount:req.Amount,
 		Desc:req.Desc,
 	}
-	rawRet ,err := util.PostXMLWithTLS(WithdrawalGateway_wxbalance,request,req.RootCa,pcf.PayKey)
+	rawRet ,err := util.PostXMLWithTLS(WithdrawalGateway_wxbalance,request,req.RootCa,pcf.PayMchID)
 	if err != nil {
 		return
 	}
