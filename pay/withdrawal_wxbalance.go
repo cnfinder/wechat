@@ -26,6 +26,7 @@ type WithdrawalRequest_wxbalance struct {
 	Desc             string `xml:"desc" json:"desc"`                         //  必传              企业付款备注
 	Spbill_create_ip string `xml:"spbill_create_ip" json:"spbill_create_ip"` //  可传    该ip同在商户平台设置的ip白名单中的IP没有关联，该ip 可传用户端或者 服务端的ip
 	RootCa           string         // ca证书
+	CaKey string // 证书key
 }
 
 
@@ -77,7 +78,7 @@ func (pcf *Pay) Withdrawal_wxbalance(req  *WithdrawalRequest_wxbalance)(rsp *Wit
 		Amount:req.Amount,
 		Desc:req.Desc,
 	}
-	rawRet ,err := util.PostXMLWithTLS(WithdrawalGateway_wxbalance,request,req.RootCa,req.Mchid)
+	rawRet ,err := util.PostXMLWithTLS(WithdrawalGateway_wxbalance,request,req.RootCa,req.CaKey)
 	if err != nil {
 		return
 	}
