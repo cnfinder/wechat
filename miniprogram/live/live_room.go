@@ -12,6 +12,7 @@ const (
 	getLiveinfoURL = "https://api.weixin.qq.com/wxa/business/getliveinfo"
 	getliveinfoReplayURL = "https://api.weixin.qq.com/wxa/business/getliveinfo"
 	addgoodsURL = "https://api.weixin.qq.com/wxaapi/broadcast/room/addgoods"
+	delliveroomURL="https://api.weixin.qq.com/wxaapi/broadcast/room/deleteroom"
 )
 
 
@@ -301,3 +302,37 @@ func (this *LiveRoom) AddGoods(ids []int,room_id int) (res AddGoodsRes,err error
 
 
 
+type DelLiveRoomRes struct {
+	util.CommonError
+}
+
+func (this *LiveRoom) DelLiveRoom(id int64) (res DelLiveRoomRes,err error) {
+
+	var accessToken string
+	accessToken, err = this.GetAccessToken()
+	if err != nil {
+		return
+	}
+
+	uri := fmt.Sprintf("%s?access_token=%s", delliveroomURL, accessToken)
+	var response []byte
+
+	mapdata:=map[string]interface{}{
+		"id":id,
+	}
+
+
+	response, err = util.PostJSON(uri,mapdata)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(response, &res)
+	if err != nil {
+		return
+	}
+	if res.ErrCode != 0 {
+		err = fmt.Errorf("DelLiveRoom error : errcode=%v , errmsg=%v", res.ErrCode, res.ErrMsg)
+		return
+	}
+	return
+}
