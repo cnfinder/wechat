@@ -40,9 +40,9 @@ type WithdrawalResponse_wxbalance struct {
 	ResultCode          string `xml:"result_code,omitempty"`
 	ErrCode             string `xml:"err_code,omitempty"`
 	ErrCodeDes          string `xml:"err_code_des,omitempty"`     // 以上字段在return_code为SUCCESS的时候有返回
-	Partner_trade_no    string `xml:"partner_trade_no，omitempty"`
-	Payment_no          string `xml:"payment_no，omitempty"`
-	Payment_time          string `xml:"payment_time，omitempty"`
+	Partner_trade_no    string `xml:"partner_trade_no,omitempty"`
+	Payment_no          string `xml:"payment_no,omitempty"`
+	Payment_time          string `xml:"payment_time,omitempty"`
 }
 
 
