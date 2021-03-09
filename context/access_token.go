@@ -45,7 +45,7 @@ func (ctx *Context) GetAccessToken() (accessToken string, err error) {
 	}
 	accessTokenCacheKey := fmt.Sprintf("access_token_%s", ctx.AppID)
 	val := ctx.Cache.Get(accessTokenCacheKey)
-	if val != nil {
+	if val != nil && val.(string) !=""{
 		accessToken = val.(string)
 		return
 	}
