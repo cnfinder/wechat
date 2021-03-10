@@ -69,7 +69,7 @@ func (js *Js) GetTicket() (ticketStr string, err error) {
 	//先从cache中取
 	jsAPITicketCacheKey := fmt.Sprintf("jsapi_ticket_%s", js.AppID)
 	val := js.Cache.Get(jsAPITicketCacheKey)
-	if val != nil {
+	if val != nil && val!=""{
 		ticketStr = val.(string)
 		return
 	}
