@@ -187,7 +187,7 @@ func (pcf *Pay) BridgeAppConfig(p *Params) (cfg AppConfig, err error) {
 	cfg.NonceStr = order.NonceStr
 	cfg.Timestamp = timestamp
 	cfg.PrePayID = order.PrePayID
-	cfg.Package = "prepay_id=" + order.PrePayID
+	cfg.Package = "Sign=WXPay"
 
 	return
 }
