@@ -34,6 +34,7 @@ type Room struct {
 
 	Name string `json:"name"`
 	CoverImg string `json:"coverImg"`
+	FeedsImg string `json:"feedsImg"`
 	StartTime int64 `json:"startTime"`
 	EndTime int64 `json:"endTime"`
 	AnchorName string `json:"anchorName"`
