@@ -49,6 +49,8 @@ type Config struct {
 	SignType  string `json:"signType"`
 	Package   string `json:"package"`
 	PaySign   string `json:"paySign"`
+
+	Mweb_url string `json:"mweb_url"` // h5 pay
 }
 
 // AppConfig 是传出用于 app sdk 用的参数
