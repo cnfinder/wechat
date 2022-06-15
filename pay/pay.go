@@ -76,6 +76,8 @@ type PreOrder struct {
 	CodeURL    string `xml:"code_url,omitempty"`
 	ErrCode    string `xml:"err_code,omitempty"`
 	ErrCodeDes string `xml:"err_code_des,omitempty"`
+
+	Mweb_url string `json:"mweb_url,omitempty"` // h5 pay
 }
 
 // payRequest 接口请求参数
