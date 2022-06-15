@@ -43,6 +43,7 @@ type Params struct {
 
 // Config 是传出用于 js sdk 用的参数
 type Config struct {
+
 	Timestamp string `json:"timestamp"`
 	NonceStr  string `json:"nonceStr"`
 	PrePayID  string `json:"prePayId"`
@@ -50,7 +51,7 @@ type Config struct {
 	Package   string `json:"package"`
 	PaySign   string `json:"paySign"`
 
-	Mweb_url string `json:"mweb_url"` // h5 pay
+
 }
 
 // AppConfig 是传出用于 app sdk 用的参数
@@ -62,6 +63,7 @@ type AppConfig struct {
 	PrePayID  string `json:"prepayid"`
 	Package   string `json:"package"`
 	PaySign   string `json:"sign"`
+	Mweb_url string `json:"mweb_url"` // h5 pay
 }
 
 // PreOrder 是 unifie order 接口的返回
