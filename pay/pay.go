@@ -63,6 +63,18 @@ type AppConfig struct {
 	PrePayID  string `json:"prepayid"`
 	Package   string `json:"package"`
 	PaySign   string `json:"sign"`
+}
+
+
+// H5Config 是传出用于 h5 sdk 用的参数
+type H5Config struct {
+	AppId     string `json:"appid"`
+	MchId     string `json:"partnerid"`
+	Timestamp string `json:"timestamp"`
+	NonceStr  string `json:"noncestr"`
+	PrePayID  string `json:"prepayid"`
+	Package   string `json:"package"`
+	PaySign   string `json:"sign"`
 	Mweb_url string `json:"mweb_url"` // h5 pay
 }
 
@@ -194,6 +206,53 @@ func (pcf *Pay) BridgeAppConfig(p *Params) (cfg AppConfig, err error) {
 	cfg.Timestamp = timestamp
 	cfg.PrePayID = order.PrePayID
 	cfg.Package = "Sign=WXPay"
+
+	return
+}
+
+
+
+
+// BridgeAppConfig get app sdk config
+func (pcf *Pay) BridgeH5Config(p *Params) (cfg H5Config, err error) {
+	var (
+		buffer    strings.Builder
+		h         hash.Hash
+		timestamp = strconv.FormatInt(time.Now().Unix(), 10)
+	)
+	order, err := pcf.PrePayOrder(p)
+	if err != nil {
+		return
+	}
+	//此处二次验签拼接字符串,按ASCII字典升序排列,并且全部参数key需小写
+	buffer.WriteString("appid=")
+	buffer.WriteString(order.AppID)
+	buffer.WriteString("&noncestr=")
+	buffer.WriteString(order.NonceStr)
+	buffer.WriteString("&package=")
+	buffer.WriteString("Sign=WXPay")
+	buffer.WriteString("&partnerid=")
+	buffer.WriteString(order.MchID)
+	buffer.WriteString("&prepayid=" + order.PrePayID)
+	buffer.WriteString("&timestamp=")
+	buffer.WriteString(timestamp)
+	buffer.WriteString("&key=")
+	buffer.WriteString(pcf.PayKey)
+	if p.SignType == "MD5" {
+		h = md5.New()
+	} else {
+		h = hmac.New(sha256.New, []byte(pcf.PayKey))
+	}
+	h.Write([]byte(buffer.String()))
+	// 签名,仅返回请求微信app支付时需要的参数
+	cfg.PaySign = strings.ToUpper(hex.EncodeToString(h.Sum(nil)))
+	cfg.AppId = order.AppID
+	cfg.MchId = order.MchID
+	cfg.NonceStr = order.NonceStr
+	cfg.Timestamp = timestamp
+	cfg.PrePayID = order.PrePayID
+	cfg.Package = "Sign=WXPay"
+	cfg.Mweb_url =  order.Mweb_url
 
 	return
 }
